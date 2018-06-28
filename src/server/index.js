@@ -12,6 +12,7 @@ mongoose.connect(databaseUrl);
 mongoose.Promise = global.Promise;
 
 app.use(express.static('dist'));
+app.use(bodyParser.json());
 app.use('/api', apiRoutes);
 
 app.listen(process.env.port || portNumber, () => console.log(`Listening on port ${portNumber}`));
