@@ -14,5 +14,6 @@ mongoose.Promise = global.Promise;
 app.use(express.static('dist'));
 app.use(bodyParser.json());
 app.use('/api', apiRoutes);
+app.use((err,req,res,next) => res.status(422).send({error: err.message}));
 
 app.listen(process.env.port || portNumber, () => console.log(`Listening on port ${portNumber}`));
