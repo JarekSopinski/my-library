@@ -6,7 +6,9 @@ const Book = require('../models/book');
 const path = '/books';
 
 router.get(path, (req, res, next) => {
-    res.send({type:'GET'})
+    Book.find({})
+    .then(books => res.send(books))
+    .catch(next)
 });
 
 router.post(path, (req, res, next) => {
@@ -16,11 +18,19 @@ router.post(path, (req, res, next) => {
 });
 
 router.put(`${path}/:id`, (req, res, next) => {
-    res.send({type:'PUT'})
+    Book.findByIdAndUpdate({_id: req.params.id}, req.body)
+    .then(() => {
+        Book.findOne({_id: req.params.id})
+        .then(book => res.send(book))
+        .catch(next)
+    })
+    .catch(next)
 });
 
 router.delete(`${path}/:id`, (req, res, next) => {
-    res.send({type:'DELETE'})
+    Book.findByIdAndRemove({_id: req.params.id})
+    .then(book => res.send(book))
+    .catch(next)
 });
 
 module.exports = router;
