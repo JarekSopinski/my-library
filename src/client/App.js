@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
+
+import Header from './components/Header';
+import AddBookForm from './components/AddBookForm';
+import BookList from './components/BookList';
+import EditBookForm from './components/EditBookForm';
+
 import './style.css';
 
-export default class App extends Component {
+class App extends Component {
 
   render() {
     return (
-      <h1>My library</h1>
+      <React.Fragment>
+        <Header/>
+        <AddBookForm/>
+        <BookList/>
+        <EditBookForm/>
+      </React.Fragment>
     );
   }
-}
+};
+
+export default App;
