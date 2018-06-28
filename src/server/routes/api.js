@@ -10,7 +10,9 @@ router.get(path, (req, res) => {
 });
 
 router.post(path, (req, res) => {
-    res.send({type:'POST'})
+    Book.create(req.body).then(book => {
+        res.send(book)
+    });
 });
 
 router.put(`${path}/:id`, (req, res) => {
