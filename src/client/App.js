@@ -18,7 +18,6 @@ class App extends Component {
         <AddBookForm/>
         <Divider/>
         <BookList/>
-        <EditBookForm/>
       </Container>
     );
   }

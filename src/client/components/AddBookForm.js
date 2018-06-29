@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Form, Input, Message } from 'semantic-ui-react';
+import { Form, Input } from 'semantic-ui-react';
 
 import { validateForm } from '../utilityFunctions';
 import { postBook } from '../state/books';

@@ -22,6 +22,8 @@ export const validateForm = data => {
 
 export const validateISBN = isbn => {
 
+    console.log(isbn)
+
     let isDigitsOnly;
 
     const chars = isbn.replace(/-/g, "").split('');

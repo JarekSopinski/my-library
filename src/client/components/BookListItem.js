@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Card, Button, Divider } from 'semantic-ui-react';
+import { Card, Button, Divider, Modal } from 'semantic-ui-react';
 
 import { deleteBook } from '../state/books';
+import EditBookForm from './EditBookForm';
 
 class BookListItem extends Component {
 
@@ -37,13 +38,20 @@ class BookListItem extends Component {
         { rating && <span>Rating: {rating}</span> }
         </Card.Description>
 
-        <Button
-        style={{"marginTop": "20px"}}
-        color="blue"
-        fluid
-        data-book-id={_id}
-        >Edit book
-        </Button>
+        <Modal
+          trigger={<Button
+          style={{"marginTop": "20px"}}
+          color="blue"
+          fluid
+          data-book-id={_id}
+          >Edit book
+          </Button>}
+        >
+
+          <EditBookForm 
+          editedBook={this.props.book}/>
+
+        </Modal>
 
         <Button
         style={{"margin": "10px 0 20px 0"}}
