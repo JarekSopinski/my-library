@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api/books';
+const API_URL = 'http://localhost:8080/api/books';
 
 const FETCH_BEGIN = 'books/FETCH_BEGIN';
 const FETCH_GET_SUCCESS = 'books/FETCH_GET_SUCCESS';
