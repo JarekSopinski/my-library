@@ -98,7 +98,7 @@ export default (state = initialState, action = {}) => {
         case FETCH_FAIL:
             return {
                 fetching: false,
-                error: action.error
+                error: action.error,
             };
         case FETCH_GET_SUCCESS:
             return {

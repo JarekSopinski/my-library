@@ -16,7 +16,8 @@ class BookList extends Component {
 
       return (
         <React.Fragment>
-          { this.props.isFetching && <FetchingMessage/>}
+          { this.props.isFetching && <FetchingMessage status="fetching"/>}
+          { this.props.error && <FetchingMessage status="error"/>}
 
           { this.props.books && !this.props.isFetching &&
             <Grid>
