@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Form, Input, Message } from 'semantic-ui-react';
+import { Form, Input, Message } from 'semantic-ui-react';
 
 import { validateForm } from '../utilityFunctions';
 import { postBook } from '../state/books';
@@ -40,7 +40,7 @@ class AddBookForm extends Component {
     const { title, author, isbn, pages, rating } = this.state;
 
         return (
-        <Container>
+        <React.Fragment>
         <Form onSubmit={this.handleSubmit}>
 
           <Form.Group widths='equal'>
@@ -113,7 +113,7 @@ class AddBookForm extends Component {
           <Form.Button>Add a new book</Form.Button>
           
         </Form>
-        </Container>
+        </React.Fragment>
         );
       }
 

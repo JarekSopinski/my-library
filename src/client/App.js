@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Container, Divider } from 'semantic-ui-react';
 
 import Header from './components/Header';
 import AddBookForm from './components/AddBookForm';
@@ -11,12 +12,14 @@ class App extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <Container>
         <Header/>
+        <Divider/>
         <AddBookForm/>
+        <Divider/>
         <BookList/>
         <EditBookForm/>
-      </React.Fragment>
+      </Container>
     );
   }
 };
