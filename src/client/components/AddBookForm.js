@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Form, Input } from 'semantic-ui-react';
+import { Container, Form, Input, Message } from 'semantic-ui-react';
 
 const initialState = {
   title: '',
