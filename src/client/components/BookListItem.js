@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import { deleteBook } from '../state/books';
 
 class BookListItem extends Component {
 
+  handleDelete = event => {
+    const bookId = event.target.dataset.bookId;
+    this.props.deleteBook(bookId)
+  }
+
   render() {
 
-    const { title, author, isbn, pages, rating } = this.props.book;
+    const { _id, title, author, isbn, pages, rating } = this.props.book;
 
     return (
       <li>
@@ -15,6 +23,11 @@ class BookListItem extends Component {
         { pages && <span>Pages: {pages}</span> }
         <br/>
         { rating && <span>Rating: {rating}</span> }
+        <br/>
+        <button
+        data-book-id={_id}
+        onClick={ this.handleDelete }
+        >Delete book</button>
       </li>
       );
 
@@ -22,4 +35,4 @@ class BookListItem extends Component {
 
 };
 
-export default BookListItem;
+export default connect(null, { deleteBook })(BookListItem)
