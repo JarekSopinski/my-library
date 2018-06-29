@@ -2,7 +2,8 @@ const API_URL = 'http://localhost:3000/api/books';
 
 const FETCH_BEGIN = 'books/FETCH_BEGIN';
 const FETCH_GET_SUCCESS = 'books/FETCH_GET_SUCCESS';
-const FETCH_POST_SUCCESS = 'books/FETCH_POST_SUCCESS'
+const FETCH_POST_SUCCESS = 'books/FETCH_POST_SUCCESS';
+const FETCH_PUT_SUCCESS = 'books/FETCH_PUT_SUCCESS';
 const FETCH_DELETE_SUCCESS = 'books/FETCH_DELETE_SUCCESS';
 const FETCH_FAIL = 'books/FETCH_FAIL';
 
@@ -23,6 +24,11 @@ const fetchGetSuccess = data => ({
 
 const fetchPostSuccess = data => ({
     type: FETCH_POST_SUCCESS,
+    data
+});
+
+const fetchPutSuccess = data => ({
+    type: FETCH_PUT_SUCCESS,
     data
 });
 
@@ -53,6 +59,18 @@ export const postBook = newBookData => dispatch => {
       })
         .then(response => response.json())
         .then(data => dispatch(fetchPostSuccess(data)))
+        .catch(error => dispatch(fetchFail(error)))
+};
+
+export const editBook = (editedBookData, bookID) => dispatch => {
+    dispatch(fetchBegin());
+    return fetch(`${API_URL}/${bookID}`, {
+        body: JSON.stringify(editedBookData),
+        method: 'PUT',
+        headers: {'content-type': 'application/json'}
+      })
+        .then(response => response.json())
+        .then(data => dispatch(fetchPutSuccess(data)))
         .catch(error => dispatch(fetchFail(error)))
 };
 
@@ -89,6 +107,13 @@ export default (state = initialState, action = {}) => {
             return {
                 ...state,
                 fetching: false,
+                data: state.data.push(action.data)
+            };
+        case FETCH_PUT_SUCCESS:
+            return {
+                ...state,
+                fetching: false,
+                data: state.data.filter(book => book._id !== action.data._id),
                 data: state.data.push(action.data)
             };
         case FETCH_DELETE_SUCCESS:
