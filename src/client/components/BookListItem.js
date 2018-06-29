@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Card, Button, Divider } from 'semantic-ui-react';
 
 import { deleteBook } from '../state/books';
 
@@ -15,20 +16,46 @@ class BookListItem extends Component {
     const { _id, title, author, isbn, pages, rating } = this.props.book;
 
     return (
-      <li>
-        <h2>{title}</h2>
-        <h3>{author}</h3>
-        <span>ISBN: {isbn}</span>
-        <br/>
+      <Card centered style={{"minHeight": "350px"}}>
+      <Card.Content>
+
+        <Card.Header textAlign="center">
+        {author}
+        <Divider/>
+        {title}
+        </Card.Header>
+
+        <Divider/>
+
+        <Card.Meta textAlign="center">
+        ISBN: {isbn}
+        </Card.Meta>
+
+        <Card.Description>
         { pages && <span>Pages: {pages}</span> }
         <br/>
         { rating && <span>Rating: {rating}</span> }
-        <br/>
-        <button
+        </Card.Description>
+
+        <Button
+        style={{"marginTop": "20px"}}
+        color="blue"
+        fluid
+        data-book-id={_id}
+        >Edit book
+        </Button>
+
+        <Button
+        style={{"margin": "10px 0 20px 0"}}
+        color="red"
+        fluid
         data-book-id={_id}
         onClick={ this.handleDelete }
-        >Delete book</button>
-      </li>
+        >Delete book
+        </Button>
+
+      </Card.Content>
+      </Card>
       );
 
   }

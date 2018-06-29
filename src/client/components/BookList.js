@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Grid } from 'semantic-ui-react';
 
 import { fetchBooks } from '../state/books';
 import BookListItem from './BookListItem';
@@ -18,16 +19,17 @@ class BookList extends Component {
           { this.props.isFetching && <p>Fetching data, please wait...</p> }
 
           { this.props.books && !this.props.isFetching &&
-            <ul>
+            <Grid>
               {
                 this.props.books.map(book =>
-                  <BookListItem
-                  key={book._id}
-                  book={book} 
-                  />
+                  <Grid.Column
+                    key={book._id}
+                    mobile={16} tablet={8} computer={4} largeScreen={3} widescreen={3}>
+                    <BookListItem book={book} />
+                  </Grid.Column>
                 )
               }
-            </ul>
+            </Grid>
           }
         </React.Fragment>
       );
