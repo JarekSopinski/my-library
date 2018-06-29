@@ -11,15 +11,14 @@ const BookSchema = new Schema({
         required: [true, 'Author field is required']
     },
     isbn: {
-        type: Number,
+        type: String,
         required: [true, 'ISBN field is required']
     },
     pages: {
-        type: Number
+        type: String
     },
     rating: {
-        type: Number,
-        default: 0
+        type: String
     }
 });
 
