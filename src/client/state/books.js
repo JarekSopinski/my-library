@@ -104,10 +104,12 @@ export default (state = initialState, action = {}) => {
                 data: action.data
             };
         case FETCH_POST_SUCCESS:
+            const updatedData = state.data;
+            updatedData.push(action.data);
             return {
                 ...state,
                 fetching: false,
-                data: state.data.push(action.data)
+                data: updatedData
             };
         case FETCH_PUT_SUCCESS:
             return {

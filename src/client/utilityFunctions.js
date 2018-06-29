@@ -1,11 +1,21 @@
 export const validateForm = data => {
+
+    const isCorrectISBN = validateISBN(data.isbn);
+
+    let parsedPages;
+    data.pages ? parsedPages = parseInt(data.pages) : parsedPages = null;
+
     if (!data.title || !data.author || !data.isbn) {
         alert("Please fill all required fields.");
         return false
-    } else if (data.title && data.author && !validateISBN(data.isbn)) {
+    } else if (data.title && data.author && !isCorrectISBN) {
         alert("Incorrect ISBN number. Should be 10 or 13 digits.")
         return false
+    } else if (data.pages && !parsedPages > 0) {
+        alert("Incorrect pages' value.")
+        return false
     } else {
+        console.log("validation passed");
         return true
     }
 }

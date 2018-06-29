@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Container, Form, Input, Message } from 'semantic-ui-react';
+
+import { validateForm } from '../utilityFunctions';
+import { postBook } from '../state/books';
 
 const initialState = {
   title: '',
@@ -21,8 +25,14 @@ class AddBookForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log(this.state);
-    this.setState(initialState)
+
+    const newBookData = this.state;
+    if ( validateForm(newBookData) ) {
+      this.props.postBook(newBookData);
+      alert(`Submited a new book: ${newBookData.title} by ${newBookData.author}`);
+      this.setState(initialState)
+    }
+
   };
 
   render() {
@@ -56,6 +66,10 @@ class AddBookForm extends Component {
                 onChange={this.handleChange}
                />
             </Form.Field>
+
+          </Form.Group>
+
+          <Form.Group widths='equal'>
 
             <Form.Field required>
               <label>ISBN</label>
@@ -93,7 +107,7 @@ class AddBookForm extends Component {
                 <option value="4">4</option>
                 <option value="5">5</option>
             </Form.Field>
-          
+
           </Form.Group>
 
           <Form.Button>Add a new book</Form.Button>
@@ -105,4 +119,4 @@ class AddBookForm extends Component {
 
 };
 
-export default AddBookForm;
+export default connect(null, { postBook })(AddBookForm)
