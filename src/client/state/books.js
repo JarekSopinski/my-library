@@ -85,6 +85,9 @@ export const deleteBook = bookID => dispatch => {
 };
 
 export default (state = initialState, action = {}) => {
+
+    let updatedData;
+
     switch (action.type) {
         case FETCH_BEGIN:
             return {
@@ -104,7 +107,7 @@ export default (state = initialState, action = {}) => {
                 data: action.data
             };
         case FETCH_POST_SUCCESS:
-            const updatedData = state.data;
+            updatedData = state.data;
             updatedData.push(action.data);
             return {
                 ...state,
@@ -112,11 +115,14 @@ export default (state = initialState, action = {}) => {
                 data: updatedData
             };
         case FETCH_PUT_SUCCESS:
+            updatedData = state.data.filter(book => book._id !== action.data._id);
+            console.log(updatedData);
+            updatedData.push(action.data);
+            console.log(updatedData);
             return {
                 ...state,
                 fetching: false,
-                data: state.data.filter(book => book._id !== action.data._id),
-                data: state.data.push(action.data)
+                data: updatedData
             };
         case FETCH_DELETE_SUCCESS:
             return {

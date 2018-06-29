@@ -20,7 +20,6 @@ class EditBookForm extends Component {
 
   componentDidMount(){
     this.setState({
-      id: this.props.editedBook._id,
       title: this.props.editedBook.title,
       author: this.props.editedBook.author,
       isbn: this.props.editedBook.isbn,
@@ -38,12 +37,12 @@ class EditBookForm extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    const newBookData = this.state;
-    console.log(newBookData);
-    if ( validateForm(newBookData) ) {
-      //this.props.postBook(newBookData);
-      alert(`Submited a new book: ${newBookData.title} by ${newBookData.author}`);
-      this.setState(initialState)
+    const updatedBookData = this.state;
+    const bookID = this.props.editedBook._id;
+
+    if ( validateForm(updatedBookData) ) {
+      alert(`Updated data in a book: ${updatedBookData.title} by ${updatedBookData.author}`);
+      this.props.editBook(updatedBookData, bookID)
     }
 
   };
@@ -136,4 +135,4 @@ class EditBookForm extends Component {
 
 };
 
-export default connect(state => null, { editBook })(EditBookForm)
+export default connect(null, { editBook })(EditBookForm)
