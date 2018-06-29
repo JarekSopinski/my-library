@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { fetchBooks } from '../state/books';
+import BookListItem from './BookListItem';
 
 class BookList extends Component {
 
@@ -10,8 +11,25 @@ class BookList extends Component {
 }
 
   render() {
+
       return (
-        <div></div>
+        <React.Fragment>
+          { this.props.error && <p>{ this.props.error.message }</p> }
+          { this.props.isFetching && <p>Fetching data, please wait...</p> }
+
+          { this.props.books && !this.props.isFetching &&
+            <ul>
+              {
+                this.props.books.map(book =>
+                  <BookListItem
+                  key={book._id}
+                  book={book} 
+                  />
+                )
+              }
+            </ul>
+          }
+        </React.Fragment>
       );
     }
 
@@ -19,6 +37,6 @@ class BookList extends Component {
 
 export default connect(state => ({
   books: state.books.data,
-  isFetching: state.books.isFetching,
+  isFetching: state.books.fetching,
   error: state.books.error,
   }), { fetchBooks })(BookList)
