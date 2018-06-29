@@ -42,7 +42,7 @@ const fetchFail = error => ({
     error
 });
 
-export const fetchBooks = () => dispatch => {
+export const getAllBooks = () => dispatch => {
     dispatch(fetchBegin());
     return fetch(API_URL)
         .then(response => response.json())
@@ -116,9 +116,7 @@ export default (state = initialState, action = {}) => {
             };
         case FETCH_PUT_SUCCESS:
             updatedData = state.data.filter(book => book._id !== action.data._id);
-            console.log(updatedData);
             updatedData.push(action.data);
-            console.log(updatedData);
             return {
                 ...state,
                 fetching: false,

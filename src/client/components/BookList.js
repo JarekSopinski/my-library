@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Message, Icon } from 'semantic-ui-react';
 
-import { fetchBooks } from '../state/books';
+import { getAllBooks } from '../state/books';
 import BookListItem from './BookListItem';
+import FetchingMessage from './FetchingMessage';
 
 class BookList extends Component {
 
   componentDidMount() {
-    this.props.fetchBooks();
+    this.props.getAllBooks();
 }
 
   render() {
 
       return (
         <React.Fragment>
-          { this.props.error && <p>{ this.props.error.message }</p> }
-          { this.props.isFetching && <p>Fetching data, please wait...</p> }
+          { this.props.isFetching && <FetchingMessage/>}
 
           { this.props.books && !this.props.isFetching &&
             <Grid>
@@ -41,4 +41,4 @@ export default connect(state => ({
   books: state.books.data,
   isFetching: state.books.fetching,
   error: state.books.error,
-  }), { fetchBooks })(BookList)
+  }), { getAllBooks })(BookList)
