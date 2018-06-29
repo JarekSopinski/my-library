@@ -2,6 +2,7 @@ const API_URL = 'http://localhost:3000/api/books';
 
 const FETCH_BEGIN = 'books/FETCH_BEGIN';
 const FETCH_GET_SUCCESS = 'books/FETCH_GET_SUCCESS';
+const FETCH_POST_SUCCESS = 'books/FETCH_POST_SUCCESS'
 const FETCH_DELETE_SUCCESS = 'books/FETCH_DELETE_SUCCESS';
 const FETCH_FAIL = 'books/FETCH_FAIL';
 
@@ -20,10 +21,15 @@ const fetchGetSuccess = data => ({
     data
 });
 
+const fetchPostSuccess = data => ({
+    type: FETCH_POST_SUCCESS,
+    data
+});
+
 const fetchDeleteSuccess = data => ({
     type: FETCH_DELETE_SUCCESS,
     data
-})
+});
 
 const fetchFail = error => ({
     type: FETCH_FAIL,
@@ -35,6 +41,18 @@ export const fetchBooks = () => dispatch => {
     return fetch(API_URL)
         .then(response => response.json())
         .then(data => dispatch(fetchGetSuccess(data)))
+        .catch(error => dispatch(fetchFail(error)))
+};
+
+export const postBook = newBookData => dispatch => {
+    dispatch(fetchBegin());
+    return fetch(API_URL, {
+        body: JSON.stringify(newBookData),
+        method: 'POST',
+        headers: {'content-type': 'application/json'}
+      })
+        .then(response => response.json())
+        .then(data => dispatch(fetchPostSuccess(data)))
         .catch(error => dispatch(fetchFail(error)))
 };
 
@@ -66,6 +84,12 @@ export default (state = initialState, action = {}) => {
                 ...state,
                 fetching: false,
                 data: action.data
+            };
+        case FETCH_POST_SUCCESS:
+            return {
+                ...state,
+                fetching: false,
+                data: state.data.push(action.data)
             };
         case FETCH_DELETE_SUCCESS:
             return {
