@@ -80,12 +80,13 @@ class AddBookForm extends Component {
             </Form.Field>
 
             <Form.Field 
-              label='Rating' 
+              label='How do you rate this book?' 
               control='select'
               name="rating"
               value={rating}
               onChange={this.handleChange}
               >
+                <option value="">Can't decide</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
